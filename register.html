@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Health Sync</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="register-form">
+            <input type="text" id="register-name" placeholder="Full Name" required>
+            <input type="email" id="register-email" placeholder="Email" required>
+            <input type="password" id="register-password" placeholder="Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="index.html">Login</a></p>
+    </div>
+
+    <script>
+        document.getElementById("register-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            let name = document.getElementById("register-name").value;
+            let email = document.getElementById("register-email").value;
+
+            let doctors = ["Dr. Smith", "Dr. Johnson", "Dr. Williams", "Dr. Brown", "Dr. Jones"];
+            let assignedDoctor = doctors[Math.floor(Math.random() * doctors.length)];
+            let appointmentDate = new Date().toISOString().split("T")[0]; // Today's date
+            let appointmentTime = "10:00 AM"; // Default time
+            let reason = "General Checkup"; // Default reason
+
+            let appointment = { name, email, date: appointmentDate, time: appointmentTime, doctor: assignedDoctor, reason };
+
+            let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+            appointments.push(appointment);
+            localStorage.setItem("appointments", JSON.stringify(appointments));
+
+            alert("Registration successful! Appointment assigned with " + assignedDoctor);
+            window.location.href = "appointments.html"; // Redirect to Appointments page
+        });
+    </script>
+</body>
+</html>
